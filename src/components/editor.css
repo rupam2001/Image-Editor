@@ -1,0 +1,28 @@
+.editor-main {
+  width: 500px;
+  max-width: 500px;
+  height: 500px;
+  background-color: whitesmoke;
+  border: 1px solid gray;
+  position: relative;
+}
+.editor-img {
+  width: 100px;
+  height: 100px;
+}
+
+#canvas {
+  /* background-color: black; */
+}
+.editor-image-wrapper {
+  background-color: white;
+  border: 1px solid dodgerblue;
+}
+.editor-image-controls {
+  display: flex;
+  justify-content: space-between;
+}
+.editor-image-controls span {
+  font-size: smaller;
+  cursor: pointer;
+}

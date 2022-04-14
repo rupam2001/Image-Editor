@@ -1,23 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import Editor from "./components/editor";
+import Assets from "./components/assets";
+import { useState } from "react";
+import Editor2 from "./components/editor2";
+import Editor3 from "./components/editor3";
 
 function App() {
+  const [images, setImages] = useState([
+    { data: `https://picsum.photos/id/237/200/300`, filename: "image1.jpg" },
+    {
+      data: `https://picsum.photos/seed/picsum/200/300`,
+      filename: "image2.jpg",
+    },
+  ]);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Assets images={images} />
+      <Editor3 images={images} />
     </div>
   );
 }
