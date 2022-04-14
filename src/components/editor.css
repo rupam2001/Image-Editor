@@ -11,19 +11,30 @@
   height: 100px;
 }
 
-#canvas {
-  /* background-color: black; */
-}
 .editor-image-wrapper {
   background-color: white;
-  border: 1px solid dodgerblue;
+  border: 2px solid dodgerblue;
   resize: both;
+  max-width: max-content;
+  padding: 0;
 }
 .editor-image-controls {
   display: flex;
   justify-content: space-between;
+  z-index: 111;
+  position: absolute;
+  top: -30px;
+  /* background-color: dodgerblue; */
+  padding: 0.2rem;
 }
 .editor-image-controls span {
   font-size: smaller;
   cursor: pointer;
+  margin: 0.2rem;
+  color: dodgerblue;
+}
+.editor-image-controls span:hover {
+  /* color: green; */
+  transform: scale(1.2);
+  transition: all 0.2s ease-in-out;
 }

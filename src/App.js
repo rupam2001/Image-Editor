@@ -13,6 +13,10 @@ function App() {
       data: `https://picsum.photos/seed/picsum/200/300`,
       filename: "image2.jpg",
     },
+    {
+      data: "https://images.pexels.com/photos/2156327/pexels-photo-2156327.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+      filename: "image2.jpg",
+    },
   ]);
   return (
     <div className="App">

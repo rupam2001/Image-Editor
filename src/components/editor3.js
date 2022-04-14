@@ -6,12 +6,20 @@ import React, {
   useState,
 } from "react";
 import "./editor.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faArrows,
+  faCoffee,
+  faExpand,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 export default function Editor3({ images }) {
   const [editorImages, setEditorImages] = useState([]);
   const [selectedCanvasImage, setSelectedCanvasImage] = useState(null);
   const selectedCanvasImageRef = useRef(null);
   const [stopDrags, setStopDrags] = useState(false);
   const [moveEnabled, setMoveEnabled] = useState(false);
+  const [showControls, setShowControls] = useState(true);
   const onDrop = (e) => {
     e.preventDefault();
     // if (stopDrags) return;
@@ -28,6 +36,7 @@ export default function Editor3({ images }) {
   const handleImageClick = (e, image) => {
     setSelectedCanvasImage(image);
     setStopDrags(true);
+    setShowControls(true);
   };
 
   const mouseOverFn = useCallback(
@@ -58,12 +67,9 @@ export default function Editor3({ images }) {
 
   const isOverFlowing = (_x, _y) => {
     const editor = document.getElementById("editor");
-    const x = editor.offsetLeft;
-    const y = editor.offsetTop;
     const w = editor.offsetWidth;
     const h = editor.offsetHeight;
     const img = document.getElementById("editor-" + selectedCanvasImage.index);
-    console.log(_x, x, w);
     if (_x + img.offsetWidth > w) return true;
     if (_y + img.offsetHeight > h) return true;
     return false;
@@ -80,6 +86,7 @@ export default function Editor3({ images }) {
   };
 
   const handleMoveClick = (e) => {
+    setShowControls(false);
     if (moveEnabled) {
       setMoveEnabled(false);
       removeAllListeners(document.getElementById("editor"));
@@ -90,6 +97,7 @@ export default function Editor3({ images }) {
     const editor = document.getElementById("editor");
     editor.style.cursor = "move";
     editor.addEventListener("mousemove", mouseOverFn);
+    e.stopPropagation();
   };
   const handleMoveDelete = (image) => {
     let images = [...editorImages].filter((i) => i.index != image.index);
@@ -97,15 +105,17 @@ export default function Editor3({ images }) {
   };
   const handleClickOnEditor = (e) => {
     if (moveEnabled) {
-      removeAllListeners(document.getElementById("editor"));
-      setSelectedCanvasImage(null);
       setMoveEnabled(false);
-
       return;
     }
+    setSelectedCanvasImage(null);
     // e.stopPropagation();
+    removeAllListeners();
     setStopDrags(false);
+    console.log("editor hit");
   };
+
+  const controlsWrapperFn = (fn) => {};
 
   return (
     <div
@@ -131,26 +141,22 @@ export default function Editor3({ images }) {
                   : {}
               }
               className="editor-image-wrapper"
-
-              //   onMouseDown={(e) => handleImageClick(e, image)}
-              //   onMouseUp={handleImageRelease}
-              //   onDragStart={onDragStart}
             >
-              <div className="editor-image-controls">
-                <span onClick={handleMoveClick}>Move</span>
-                <span onClick={() => handleMoveDelete(image)}>Delete</span>
-              </div>
-              <img
-                ref={
-                  selectedCanvasImage?.index == index
-                    ? selectedCanvasImageRef
-                    : null
-                }
-                src={image.data}
-                className="editor-img"
-                key={index}
-                // onClick={handleImageClick}
-              />
+              {showControls && (
+                <div className="editor-image-controls">
+                  <span onClick={(e) => handleMoveClick(e)}>
+                    <FontAwesomeIcon icon={faArrows} />
+                  </span>
+
+                  <span onClick={() => handleMoveDelete(image)}>
+                    <FontAwesomeIcon icon={faTrash} />
+                  </span>
+                  {/* <span onClick={() => handleMoveDelete(image)}>
+                    <FontAwesomeIcon icon={faExpand} />
+                  </span> */}
+                </div>
+              )}
+              <img src={image.data} className="editor-img" key={index} />
             </div>
           );
         }
