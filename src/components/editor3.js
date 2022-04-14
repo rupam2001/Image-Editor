@@ -131,6 +131,7 @@ export default function Editor3({ images }) {
                   : {}
               }
               className="editor-image-wrapper"
+
               //   onMouseDown={(e) => handleImageClick(e, image)}
               //   onMouseUp={handleImageRelease}
               //   onDragStart={onDragStart}

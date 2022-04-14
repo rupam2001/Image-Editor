@@ -17,6 +17,7 @@
 .editor-image-wrapper {
   background-color: white;
   border: 1px solid dodgerblue;
+  resize: both;
 }
 .editor-image-controls {
   display: flex;
